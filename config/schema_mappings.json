@@ -1,0 +1,25 @@
+{
+  "_comment": "Field renames a human has reviewed and approved. The schema-drift detector still raises an alert the first time each one appears; approval only controls whether the data loads. Anything not listed here is quarantined.",
+  "cm2_jsonl": {
+    "results.MTF_50": {
+      "maps_to": "results.mtf50",
+      "approved_by": "optics-data-oncall",
+      "approved_on": "2026-04-10",
+      "evidence": "values match mtf50 distribution; vendor release notes v5.0"
+    },
+    "results.dUV": {
+      "maps_to": "results.delta_uv",
+      "approved_by": "optics-data-oncall",
+      "approved_on": "2026-04-10",
+      "evidence": "values match delta_uv distribution"
+    }
+  },
+  "cm3_xlsx": {
+    "Serial No.": {
+      "maps_to": "SN",
+      "approved_by": "optics-data-oncall",
+      "approved_on": "2026-05-12",
+      "evidence": "same serial format HS########"
+    }
+  }
+}

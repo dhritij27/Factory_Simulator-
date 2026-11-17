@@ -1,0 +1,10 @@
+numpy>=2.0
+pandas>=2.2
+scipy>=1.13
+duckdb>=1.1
+pyarrow>=16
+openpyxl>=3.1
+ruptures>=1.1.9
+matplotlib>=3.8
+anthropic>=0.70
+pytest>=8

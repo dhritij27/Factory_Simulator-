@@ -1,0 +1,178 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 950" width="1200" height="950" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif">
+  <title>Factory Simulator architecture</title>
+  <desc>Data flows from a simulated factory through ingestion, a DuckDB warehouse and analytics, into a calibration agent, a dashboard and a back-test that scores everything against planted ground truth.</desc>
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#52514e"/>
+    </marker>
+    <style>
+      .box { fill: #ffffff; stroke: #c3c2b7; stroke-width: 1.2; }
+      .chip { fill: #ffffff; stroke: #c3c2b7; stroke-width: 1; }
+      .t { font-size: 13px; font-weight: 600; fill: #0b0b0b; }
+      .s { font-size: 11px; fill: #52514e; }
+      .h { font-size: 13px; font-weight: 700; }
+      .ln { stroke: #52514e; stroke-width: 1.5; fill: none; }
+      .gt { stroke: #898781; stroke-width: 1.5; fill: none; stroke-dasharray: 6 4; }
+    </style>
+  </defs>
+
+  <rect width="1200" height="950" fill="#fcfcfb"/>
+  <text x="40" y="40" font-size="20" font-weight="700" fill="#0b0b0b">Factory Simulator: how the data moves</text>
+  <text x="40" y="62" class="s">Messy optical test data in, trusted measurement findings and maintenance drafts out. Every stage is scored against faults the simulator planted.</text>
+
+  <!-- Row 1: sources -->
+  <rect class="box" x="40" y="90" width="260" height="80" rx="8"/>
+  <text x="56" y="116" class="t">Factory simulator</text>
+  <text x="56" y="136" class="s">19 stations · 3 CMs + 2 labs · 182 days</text>
+  <text x="56" y="153" class="s">drift, steps, bias, noise, schema changes</text>
+
+  <rect class="box" x="360" y="90" width="480" height="80" rx="8"/>
+  <text x="376" y="116" class="t">Vendor exports (data/raw/)</text>
+  <text x="376" y="136" class="s">CM1 daily CSV · CM2 nested JSON lines · CM3 weekly Excel with banner row</text>
+  <text x="376" y="153" class="s">Lab semicolon CSV, D/M/Y dates · golden-unit reference certificates</text>
+
+  <rect class="box" x="900" y="90" width="260" height="80" rx="8" stroke-dasharray="6 4"/>
+  <text x="916" y="116" class="t">Ground truth</text>
+  <text x="916" y="136" class="s">every planted fault and schema event,</text>
+  <text x="916" y="153" class="s">true station per record. Pipeline never reads it.</text>
+
+  <path class="ln" d="M300,130 L356,130" marker-end="url(#a)"/>
+  <path class="gt" d="M170,90 L170,78 L1030,78 L1030,86" marker-end="url(#a)"/>
+
+  <!-- Row 2: ingestion -->
+  <path class="ln" d="M600,170 L600,206" marker-end="url(#a)"/>
+  <rect x="40" y="210" width="1120" height="130" rx="10" fill="#eef4fc" stroke="#b7d3f6"/>
+  <text x="56" y="234" class="h" fill="#1c5cab">Ingestion · fabsim/ingest</text>
+  <text x="1144" y="234" class="s" text-anchor="end">skips files it has already loaded (content hash)</text>
+
+  <g>
+    <rect class="chip" x="56" y="250" width="164" height="72" rx="6"/>
+    <text x="68" y="272" class="t">Parse</text>
+    <text x="68" y="292" class="s">one parser per format</text>
+    <text x="68" y="308" class="s">skips banner rows</text>
+
+    <rect class="chip" x="240" y="250" width="164" height="72" rx="6"/>
+    <text x="252" y="272" class="t">Schema contract</text>
+    <text x="252" y="292" class="s">diff vs expected fields</text>
+    <text x="252" y="308" class="s">approved renames only</text>
+
+    <rect class="chip" x="424" y="250" width="164" height="72" rx="6"/>
+    <text x="436" y="272" class="t">Row validation</text>
+    <text x="436" y="292" class="s">timestamp, unit, value</text>
+    <text x="436" y="308" class="s">plausible range</text>
+
+    <rect class="chip" x="608" y="250" width="164" height="72" rx="6"/>
+    <text x="620" y="272" class="t">Station names</text>
+    <text x="620" y="292" class="s">site · line · station</text>
+    <text x="620" y="308" class="s">ties → instrument ID</text>
+
+    <rect class="chip" x="792" y="250" width="164" height="72" rx="6"/>
+    <text x="804" y="272" class="t">Instrument fill</text>
+    <text x="804" y="292" class="s">from install history</text>
+    <text x="804" y="308" class="s">flagged as imputed</text>
+
+    <rect class="chip" x="976" y="250" width="164" height="72" rx="6"/>
+    <text x="988" y="272" class="t">Scale check</text>
+    <text x="988" y="292" class="s">MAD vs stream baseline</text>
+    <text x="988" y="308" class="s">silent unit changes</text>
+
+    <path class="ln" d="M220,286 L236,286" marker-end="url(#a)"/>
+    <path class="ln" d="M404,286 L420,286" marker-end="url(#a)"/>
+    <path class="ln" d="M588,286 L604,286" marker-end="url(#a)"/>
+    <path class="ln" d="M772,286 L788,286" marker-end="url(#a)"/>
+    <path class="ln" d="M956,286 L972,286" marker-end="url(#a)"/>
+  </g>
+
+  <!-- Row 3: lake + warehouse -->
+  <path class="ln" d="M181,340 L181,366" marker-end="url(#a)"/>
+  <path class="ln" d="M455,340 L455,366" marker-end="url(#a)"/>
+  <path class="ln" d="M729,340 L729,366" marker-end="url(#a)"/>
+
+  <rect class="box" x="56" y="370" width="250" height="70" rx="8"/>
+  <text x="72" y="396" class="t">Lake: staged Parquet</text>
+  <text x="72" y="416" class="s">clean rows, one file per export</text>
+
+  <rect class="box" x="330" y="370" width="250" height="70" rx="8"/>
+  <text x="346" y="396" class="t">Quarantine</text>
+  <text x="346" y="416" class="s">rejected rows, each with its reason</text>
+
+  <rect class="box" x="604" y="370" width="250" height="70" rx="8"/>
+  <text x="620" y="396" class="t">Ingest alerts</text>
+  <text x="620" y="416" class="s">deduplicated: first seen, file count</text>
+
+  <rect class="box" x="900" y="360" width="260" height="90" rx="8" stroke="#2a78d6" stroke-width="1.8"/>
+  <text x="916" y="386" class="t">DuckDB warehouse</text>
+  <text x="916" y="406" class="s">fact_measurement + 7 dimension tables</text>
+  <text x="916" y="423" class="s">star schema; quarantine and alerts too</text>
+
+  <path class="ln" d="M181,440 L181,462 L1000,462 L1000,454" marker-end="url(#a)"/>
+  <path class="ln" d="M455,440 L455,462"/>
+  <path class="ln" d="M729,440 L729,462"/>
+
+  <!-- Row 4: analytics -->
+  <path class="ln" d="M1100,450 L1100,486" marker-end="url(#a)"/>
+  <rect x="40" y="490" width="1120" height="140" rx="10" fill="#fdf1ec" stroke="#f5c4ae"/>
+  <text x="56" y="514" class="h" fill="#a3431c">Analytics · fabsim/analytics</text>
+
+  <rect class="chip" x="56" y="530" width="256" height="72" rx="6"/>
+  <text x="68" y="552" class="t">Gauge R&amp;R</text>
+  <text x="68" y="572" class="s">ANOVA method, AIAG interaction pooling</text>
+  <text x="68" y="588" class="s">parametric bootstrap 95% CI on %GRR</text>
+
+  <rect class="chip" x="332" y="530" width="256" height="72" rx="6"/>
+  <text x="344" y="552" class="t">Station correlation</text>
+  <text x="344" y="572" class="s">golden-unit bias vs certified reference</text>
+  <text x="344" y="588" class="s">Bland–Altman · Deming regression</text>
+
+  <rect class="chip" x="608" y="530" width="256" height="72" rx="6"/>
+  <text x="620" y="552" class="t">Drift detection</text>
+  <text x="620" y="572" class="s">EWMA and CUSUM, online</text>
+  <text x="620" y="588" class="s">PELT change points, offline</text>
+
+  <rect class="chip" x="884" y="530" width="256" height="72" rx="6"/>
+  <text x="896" y="552" class="t">Capability</text>
+  <text x="896" y="572" class="s">Cpk per station, metric and eye</text>
+  <text x="896" y="588" class="s">Bissell 95% CI</text>
+
+  <text x="56" y="620" class="s">writes findings tables back to the warehouse: grr_results · correlation_results · drift_findings · cpk_results</text>
+
+  <!-- Row 5: consumers -->
+  <path class="ln" d="M220,630 L220,666" marker-end="url(#a)"/>
+  <path class="ln" d="M600,630 L600,666" marker-end="url(#a)"/>
+  <path class="ln" d="M980,630 L980,666" marker-end="url(#a)"/>
+
+  <rect class="box" x="40" y="670" width="360" height="120" rx="8" stroke="#6250d6" stroke-width="1.8"/>
+  <text x="56" y="696" class="t">Calibration agent</text>
+  <text x="56" y="716" class="s">LLM (Claude) or rule-based baseline, same 7 tools</text>
+  <text x="56" y="733" class="s">escalation policy: P1 / P2 / P3 / none / ask a human</text>
+  <text x="56" y="750" class="s">drafts tickets only; a person approves</text>
+  <text x="56" y="767" class="s">grounding check: every number must come from a tool</text>
+
+  <rect class="box" x="40" y="820" width="360" height="70" rx="8"/>
+  <text x="56" y="846" class="t">System of record (SQLite)</text>
+  <text x="56" y="866" class="s">instruments · certificates · tickets · line schedule</text>
+  <path class="ln" d="M220,794 L220,816" marker-start="url(#a)" marker-end="url(#a)"/>
+
+  <rect class="box" x="420" y="670" width="360" height="120" rx="8"/>
+  <text x="436" y="696" class="t">Dashboard (Next.js, static)</text>
+  <text x="436" y="716" class="s">renders dashboard.json, computes nothing</text>
+  <text x="436" y="733" class="s">control charts · station heatmap · GRR · certificates</text>
+  <text x="436" y="750" class="s">reconciliation tests re-derive every number</text>
+  <text x="436" y="767" class="s">with independent SQL</text>
+
+  <rect class="box" x="800" y="670" width="360" height="120" rx="8"/>
+  <text x="816" y="696" class="t">Back-test</text>
+  <text x="816" y="716" class="s">scores each stage against the planted faults</text>
+  <text x="816" y="733" class="s">mapping accuracy · alert delay · recall</text>
+  <text x="816" y="750" class="s">false alarms / station-month · CI coverage</text>
+  <text x="816" y="767" class="s">→ results/backtest.md, checked on a 2nd seed</text>
+
+  <path class="gt" d="M1160,130 L1182,130 L1182,730 L1164,730" marker-end="url(#a)"/>
+
+  <rect x="420" y="820" width="740" height="70" rx="8" fill="#f0efec" stroke="#e1e0d9"/>
+  <text x="436" y="846" class="t">Agent evaluation</text>
+  <text x="436" y="866" class="s">46 hand-labelled scenarios: right decision, right tools, right ticket, and no ungrounded numbers</text>
+  <path class="ln" d="M400,780 L410,780 L410,855 L416,855" marker-end="url(#a)"/>
+
+  <text x="40" y="928" class="s">Solid arrows: data flow. Dashed: simulation only. A real deployment would have no ground truth; every other stage would run unchanged on real exports.</text>
+</svg>

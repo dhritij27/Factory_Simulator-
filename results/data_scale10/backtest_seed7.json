@@ -1,0 +1,1637 @@
+{
+  "generated_at": "2026-11-16",
+  "seed": 7,
+  "scale": 10.0,
+  "ingestion": {
+    "rows_loaded": 8160714,
+    "rows_quarantined": 51294,
+    "station_mapping": {
+      "rows_checked": 8160714,
+      "correct": 8160714,
+      "wrong": 0,
+      "accuracy": 1.0,
+      "variant_label_rows": 5778785,
+      "variant_label_correct": 5778785,
+      "ambiguous_rows_quarantined": 1113
+    },
+    "instrument_imputation": {
+      "rows_imputed": 39694,
+      "correct": 39694
+    },
+    "missing_metadata": {
+      "missing_timestamp_rows": 11357,
+      "missing_timestamp_leaked": 0,
+      "missing_station_rows": 7451,
+      "missing_station_leaked": 0
+    },
+    "schema_events": [
+      {
+        "event_id": "SE-1",
+        "site_id": "CM1",
+        "kind": "additive",
+        "detail": "column fw_version added and column order changed",
+        "event_date": "2026-03-06",
+        "first_alert": "2026-03-06",
+        "detection_delay_days": 0,
+        "detected": true
+      },
+      {
+        "event_id": "SE-2",
+        "site_id": "CM2",
+        "kind": "rename",
+        "detail": "measurement keys mtf50 -> MTF_50 and delta_uv -> dUV",
+        "event_date": "2026-04-10",
+        "first_alert": "2026-04-10",
+        "detection_delay_days": 0,
+        "detected": true
+      },
+      {
+        "event_id": "SE-3",
+        "site_id": "CM3",
+        "kind": "rename",
+        "detail": "column SN -> Serial No.",
+        "event_date": "2026-05-11",
+        "first_alert": "2026-05-11",
+        "detection_delay_days": 0,
+        "detected": true
+      },
+      {
+        "event_id": "SE-4",
+        "site_id": "LAB-RD",
+        "kind": "unit_change",
+        "detail": "vert_misalign exported in degrees instead of arcmin, header unchanged",
+        "event_date": "2026-05-05",
+        "first_alert": "2026-05-05",
+        "detection_delay_days": 0,
+        "detected": true
+      }
+    ],
+    "unit_change": {
+      "rows_affected": 8813,
+      "rows_quarantined": 8813,
+      "rows_leaked_into_warehouse": 0
+    },
+    "spurious_quarantine": {
+      "rows": 1113,
+      "by_reason": {
+        "ambiguous_station": 1113
+      },
+      "fraction_of_clean_rows": 0.00013636652675926602
+    }
+  },
+  "detectors": {
+    "raw": {
+      "ewma": {
+        "faults": 20,
+        "detected": 19,
+        "recall": 0.95,
+        "alarms": 35,
+        "true_alarms": 19,
+        "false_alarms": 16,
+        "precision": 0.5428571428571428,
+        "false_alarms_per_station_month": 0.16864265927977842,
+        "median_delay_days": 10.0,
+        "delay_note": "days after onset"
+      },
+      "cusum": {
+        "faults": 20,
+        "detected": 20,
+        "recall": 1.0,
+        "alarms": 31,
+        "true_alarms": 20,
+        "false_alarms": 11,
+        "precision": 0.6451612903225806,
+        "false_alarms_per_station_month": 0.11594182825484765,
+        "median_delay_days": 10.0,
+        "delay_note": "days after onset"
+      },
+      "pelt": {
+        "faults": 20,
+        "detected": 19,
+        "recall": 0.95,
+        "alarms": 45,
+        "true_alarms": 42,
+        "false_alarms": 3,
+        "precision": 0.9333333333333333,
+        "false_alarms_per_station_month": 0.03162049861495845,
+        "median_delay_days": 4.0,
+        "delay_note": "signed localisation error (offline, uses future data)"
+      },
+      "ewma_or_cusum": {
+        "faults": 20,
+        "detected": 20,
+        "recall": 1.0,
+        "median_delay_days": 10.0
+      },
+      "recall_by_size": [
+        {
+          "detector": "cusum",
+          "size": "<1 sigma",
+          "detected": 4,
+          "faults": 4
+        },
+        {
+          "detector": "cusum",
+          "size": "1-2 sigma",
+          "detected": 9,
+          "faults": 9
+        },
+        {
+          "detector": "cusum",
+          "size": ">2 sigma",
+          "detected": 7,
+          "faults": 7
+        },
+        {
+          "detector": "ewma",
+          "size": "<1 sigma",
+          "detected": 3,
+          "faults": 4
+        },
+        {
+          "detector": "ewma",
+          "size": "1-2 sigma",
+          "detected": 9,
+          "faults": 9
+        },
+        {
+          "detector": "ewma",
+          "size": ">2 sigma",
+          "detected": 7,
+          "faults": 7
+        },
+        {
+          "detector": "pelt",
+          "size": "<1 sigma",
+          "detected": 3,
+          "faults": 4
+        },
+        {
+          "detector": "pelt",
+          "size": "1-2 sigma",
+          "detected": 9,
+          "faults": 9
+        },
+        {
+          "detector": "pelt",
+          "size": ">2 sigma",
+          "detected": 7,
+          "faults": 7
+        }
+      ],
+      "exposure": {
+        "series": 76,
+        "stations": 19,
+        "monitored_days": 152,
+        "station_months": 94.9
+      },
+      "per_fault": [
+        {
+          "detector": "ewma",
+          "fault_id": "F-DRIFT-01",
+          "kind": "drift",
+          "station_id": "CM1-L2-ST01",
+          "metric": "mtf50",
+          "onset_day": 136,
+          "size_sigma": 1.8186533671208398,
+          "detected": true,
+          "delay_days": 10.0
+        },
+        {
+          "detector": "ewma",
+          "fault_id": "F-DRIFT-02",
+          "kind": "drift",
+          "station_id": "CM2-L1-ST01",
+          "metric": "vert_misalign",
+          "onset_day": 107,
+          "size_sigma": 1.4670337416339783,
+          "detected": true,
+          "delay_days": 16.0
+        },
+        {
+          "detector": "ewma",
+          "fault_id": "F-DRIFT-03",
+          "kind": "drift",
+          "station_id": "CM3-L1-ST03",
+          "metric": "vert_misalign",
+          "onset_day": 85,
+          "size_sigma": 0.7422039416292087,
+          "detected": true,
+          "delay_days": 19.0
+        },
+        {
+          "detector": "ewma",
+          "fault_id": "F-DRIFT-04",
+          "kind": "drift",
+          "station_id": "LAB-SV-B02",
+          "metric": "vert_misalign",
+          "onset_day": 60,
+          "size_sigma": 1.375287231019696,
+          "detected": true,
+          "delay_days": 26.0
+        },
+        {
+          "detector": "ewma",
+          "fault_id": "F-DRIFT-05",
+          "kind": "drift",
+          "station_id": "CM1-L1-ST03",
+          "metric": "delta_uv",
+          "onset_day": 87,
+          "size_sigma": 2.5592114491657814,
+          "detected": true,
+          "delay_days": 10.0
+        },
+        {
+          "detector": "ewma",
+          "fault_id": "F-DRIFT-06",
+          "kind": "drift",
+          "station_id": "CM3-L1-ST01",
+          "metric": "mtf50",
+          "onset_day": 86,
+          "size_sigma": 2.9489949225869316,
+          "detected": true,
+          "delay_days": 10.0
+        },
+        {
+          "detector": "ewma",
+          "fault_id": "F-DRIFT-07",
+          "kind": "drift",
+          "station_id": "CM1-L1-ST02",
+          "metric": "mtf50",
+          "onset_day": 91,
+          "size_sigma": 2.0521350091916424,
+          "detected": true,
+          "delay_days": 7.0
+        },
+        {
+          "detector": "ewma",
+          "fault_id": "F-DRIFT-08",
+          "kind": "drift",
+          "station_id": "CM3-L1-ST02",
+          "metric": "mtf50",
+          "onset_day": 145,
+          "size_sigma": 2.223480585150692,
+          "detected": true,
+          "delay_days": 15.0
+        },
+        {
+          "detector": "ewma",
+          "fault_id": "F-DRIFT-09",
+          "kind": "drift",
+          "station_id": "CM1-L1-ST01",
+          "metric": "lum_uniformity",
+          "onset_day": 82,
+          "size_sigma": 1.6567523212516497,
+          "detected": true,
+          "delay_days": 15.0
+        },
+        {
+          "detector": "ewma",
+          "fault_id": "F-DRIFT-10",
+          "kind": "drift",
+          "station_id": "CM1-L1-ST02",
+          "metric": "delta_uv",
+          "onset_day": 70,
+          "size_sigma": 1.565995915449556,
+          "detected": true,
+          "delay_days": 13.0
+        },
+        {
+          "detector": "ewma",
+          "fault_id": "F-DRIFT-11",
+          "kind": "drift",
+          "station_id": "LAB-SV-B02",
+          "metric": "lum_uniformity",
+          "onset_day": 146,
+          "size_sigma": 0.8320898254361895,
+          "detected": false,
+          "delay_days": NaN
+        },
+        {
+          "detector": "ewma",
+          "fault_id": "F-DRIFT-12",
+          "kind": "drift",
+          "station_id": "LAB-RD-B02",
+          "metric": "mtf50",
+          "onset_day": 115,
+          "size_sigma": 1.116009689654112,
+          "detected": true,
+          "delay_days": 11.0
+        },
+        {
+          "detector": "ewma",
+          "fault_id": "F-STEP-01",
+          "kind": "step",
+          "station_id": "CM2-L2-ST01",
+          "metric": "mtf50",
+          "onset_day": 136,
+          "size_sigma": 1.1008401629581406,
+          "detected": true,
+          "delay_days": 1.0
+        },
+        {
+          "detector": "ewma",
+          "fault_id": "F-STEP-02",
+          "kind": "step",
+          "station_id": "CM1-L2-ST02",
+          "metric": "mtf50",
+          "onset_day": 58,
+          "size_sigma": 1.8244294766769076,
+          "detected": true,
+          "delay_days": 1.0
+        },
+        {
+          "detector": "ewma",
+          "fault_id": "F-STEP-03",
+          "kind": "step",
+          "station_id": "LAB-RD-B01",
+          "metric": "lum_uniformity",
+          "onset_day": 144,
+          "size_sigma": 2.190148641749106,
+          "detected": true,
+          "delay_days": 1.0
+        },
+        {
+          "detector": "ewma",
+          "fault_id": "F-STEP-04",
+          "kind": "step",
+          "station_id": "CM2-L3-ST02",
+          "metric": "mtf50",
+          "onset_day": 104,
+          "size_sigma": 2.307833576391854,
+          "detected": true,
+          "delay_days": 0.0
+        },
+        {
+          "detector": "ewma",
+          "fault_id": "F-STEP-05",
+          "kind": "step",
+          "station_id": "CM2-L2-ST01",
+          "metric": "lum_uniformity",
+          "onset_day": 65,
+          "size_sigma": 0.7909199075218538,
+          "detected": true,
+          "delay_days": 2.0
+        },
+        {
+          "detector": "ewma",
+          "fault_id": "F-STEP-06",
+          "kind": "step",
+          "station_id": "CM3-L1-ST03",
+          "metric": "lum_uniformity",
+          "onset_day": 102,
+          "size_sigma": 2.355811369489049,
+          "detected": true,
+          "delay_days": 0.0
+        },
+        {
+          "detector": "ewma",
+          "fault_id": "F-STEP-07",
+          "kind": "step",
+          "station_id": "CM2-L1-ST02",
+          "metric": "mtf50",
+          "onset_day": 137,
+          "size_sigma": 0.8611049968978233,
+          "detected": true,
+          "delay_days": 2.0
+        },
+        {
+          "detector": "ewma",
+          "fault_id": "F-STEP-08",
+          "kind": "step",
+          "station_id": "CM2-L1-ST02",
+          "metric": "delta_uv",
+          "onset_day": 106,
+          "size_sigma": 1.7831434104449615,
+          "detected": true,
+          "delay_days": 0.0
+        },
+        {
+          "detector": "cusum",
+          "fault_id": "F-DRIFT-01",
+          "kind": "drift",
+          "station_id": "CM1-L2-ST01",
+          "metric": "mtf50",
+          "onset_day": 136,
+          "size_sigma": 1.8186533671208398,
+          "detected": true,
+          "delay_days": 10.0
+        },
+        {
+          "detector": "cusum",
+          "fault_id": "F-DRIFT-02",
+          "kind": "drift",
+          "station_id": "CM2-L1-ST01",
+          "metric": "vert_misalign",
+          "onset_day": 107,
+          "size_sigma": 1.4670337416339783,
+          "detected": true,
+          "delay_days": 17.0
+        },
+        {
+          "detector": "cusum",
+          "fault_id": "F-DRIFT-03",
+          "kind": "drift",
+          "station_id": "CM3-L1-ST03",
+          "metric": "vert_misalign",
+          "onset_day": 85,
+          "size_sigma": 0.7422039416292087,
+          "detected": true,
+          "delay_days": 25.0
+        },
+        {
+          "detector": "cusum",
+          "fault_id": "F-DRIFT-04",
+          "kind": "drift",
+          "station_id": "LAB-SV-B02",
+          "metric": "vert_misalign",
+          "onset_day": 60,
+          "size_sigma": 1.375287231019696,
+          "detected": true,
+          "delay_days": 26.0
+        },
+        {
+          "detector": "cusum",
+          "fault_id": "F-DRIFT-05",
+          "kind": "drift",
+          "station_id": "CM1-L1-ST03",
+          "metric": "delta_uv",
+          "onset_day": 87,
+          "size_sigma": 2.5592114491657814,
+          "detected": true,
+          "delay_days": 11.0
+        },
+        {
+          "detector": "cusum",
+          "fault_id": "F-DRIFT-06",
+          "kind": "drift",
+          "station_id": "CM3-L1-ST01",
+          "metric": "mtf50",
+          "onset_day": 86,
+          "size_sigma": 2.9489949225869316,
+          "detected": true,
+          "delay_days": 10.0
+        },
+        {
+          "detector": "cusum",
+          "fault_id": "F-DRIFT-07",
+          "kind": "drift",
+          "station_id": "CM1-L1-ST02",
+          "metric": "mtf50",
+          "onset_day": 91,
+          "size_sigma": 2.0521350091916424,
+          "detected": true,
+          "delay_days": 9.0
+        },
+        {
+          "detector": "cusum",
+          "fault_id": "F-DRIFT-08",
+          "kind": "drift",
+          "station_id": "CM3-L1-ST02",
+          "metric": "mtf50",
+          "onset_day": 145,
+          "size_sigma": 2.223480585150692,
+          "detected": true,
+          "delay_days": 15.0
+        },
+        {
+          "detector": "cusum",
+          "fault_id": "F-DRIFT-09",
+          "kind": "drift",
+          "station_id": "CM1-L1-ST01",
+          "metric": "lum_uniformity",
+          "onset_day": 82,
+          "size_sigma": 1.6567523212516497,
+          "detected": true,
+          "delay_days": 15.0
+        },
+        {
+          "detector": "cusum",
+          "fault_id": "F-DRIFT-10",
+          "kind": "drift",
+          "station_id": "CM1-L1-ST02",
+          "metric": "delta_uv",
+          "onset_day": 70,
+          "size_sigma": 1.565995915449556,
+          "detected": true,
+          "delay_days": 13.0
+        },
+        {
+          "detector": "cusum",
+          "fault_id": "F-DRIFT-11",
+          "kind": "drift",
+          "station_id": "LAB-SV-B02",
+          "metric": "lum_uniformity",
+          "onset_day": 146,
+          "size_sigma": 0.8320898254361895,
+          "detected": true,
+          "delay_days": 33.0
+        },
+        {
+          "detector": "cusum",
+          "fault_id": "F-DRIFT-12",
+          "kind": "drift",
+          "station_id": "LAB-RD-B02",
+          "metric": "mtf50",
+          "onset_day": 115,
+          "size_sigma": 1.116009689654112,
+          "detected": true,
+          "delay_days": 13.0
+        },
+        {
+          "detector": "cusum",
+          "fault_id": "F-STEP-01",
+          "kind": "step",
+          "station_id": "CM2-L2-ST01",
+          "metric": "mtf50",
+          "onset_day": 136,
+          "size_sigma": 1.1008401629581406,
+          "detected": true,
+          "delay_days": 1.0
+        },
+        {
+          "detector": "cusum",
+          "fault_id": "F-STEP-02",
+          "kind": "step",
+          "station_id": "CM1-L2-ST02",
+          "metric": "mtf50",
+          "onset_day": 58,
+          "size_sigma": 1.8244294766769076,
+          "detected": true,
+          "delay_days": 1.0
+        },
+        {
+          "detector": "cusum",
+          "fault_id": "F-STEP-03",
+          "kind": "step",
+          "station_id": "LAB-RD-B01",
+          "metric": "lum_uniformity",
+          "onset_day": 144,
+          "size_sigma": 2.190148641749106,
+          "detected": true,
+          "delay_days": 1.0
+        },
+        {
+          "detector": "cusum",
+          "fault_id": "F-STEP-04",
+          "kind": "step",
+          "station_id": "CM2-L3-ST02",
+          "metric": "mtf50",
+          "onset_day": 104,
+          "size_sigma": 2.307833576391854,
+          "detected": true,
+          "delay_days": 1.0
+        },
+        {
+          "detector": "cusum",
+          "fault_id": "F-STEP-05",
+          "kind": "step",
+          "station_id": "CM2-L2-ST01",
+          "metric": "lum_uniformity",
+          "onset_day": 65,
+          "size_sigma": 0.7909199075218538,
+          "detected": true,
+          "delay_days": 2.0
+        },
+        {
+          "detector": "cusum",
+          "fault_id": "F-STEP-06",
+          "kind": "step",
+          "station_id": "CM3-L1-ST03",
+          "metric": "lum_uniformity",
+          "onset_day": 102,
+          "size_sigma": 2.355811369489049,
+          "detected": true,
+          "delay_days": 0.0
+        },
+        {
+          "detector": "cusum",
+          "fault_id": "F-STEP-07",
+          "kind": "step",
+          "station_id": "CM2-L1-ST02",
+          "metric": "mtf50",
+          "onset_day": 137,
+          "size_sigma": 0.8611049968978233,
+          "detected": true,
+          "delay_days": 3.0
+        },
+        {
+          "detector": "cusum",
+          "fault_id": "F-STEP-08",
+          "kind": "step",
+          "station_id": "CM2-L1-ST02",
+          "metric": "delta_uv",
+          "onset_day": 106,
+          "size_sigma": 1.7831434104449615,
+          "detected": true,
+          "delay_days": 1.0
+        },
+        {
+          "detector": "pelt",
+          "fault_id": "F-DRIFT-01",
+          "kind": "drift",
+          "station_id": "CM1-L2-ST01",
+          "metric": "mtf50",
+          "onset_day": 136,
+          "size_sigma": 1.8186533671208398,
+          "detected": true,
+          "delay_days": 4.0
+        },
+        {
+          "detector": "pelt",
+          "fault_id": "F-DRIFT-02",
+          "kind": "drift",
+          "station_id": "CM2-L1-ST01",
+          "metric": "vert_misalign",
+          "onset_day": 107,
+          "size_sigma": 1.4670337416339783,
+          "detected": true,
+          "delay_days": 14.0
+        },
+        {
+          "detector": "pelt",
+          "fault_id": "F-DRIFT-03",
+          "kind": "drift",
+          "station_id": "CM3-L1-ST03",
+          "metric": "vert_misalign",
+          "onset_day": 85,
+          "size_sigma": 0.7422039416292087,
+          "detected": true,
+          "delay_days": 18.0
+        },
+        {
+          "detector": "pelt",
+          "fault_id": "F-DRIFT-04",
+          "kind": "drift",
+          "station_id": "LAB-SV-B02",
+          "metric": "vert_misalign",
+          "onset_day": 60,
+          "size_sigma": 1.375287231019696,
+          "detected": true,
+          "delay_days": 17.0
+        },
+        {
+          "detector": "pelt",
+          "fault_id": "F-DRIFT-05",
+          "kind": "drift",
+          "station_id": "CM1-L1-ST03",
+          "metric": "delta_uv",
+          "onset_day": 87,
+          "size_sigma": 2.5592114491657814,
+          "detected": true,
+          "delay_days": 5.0
+        },
+        {
+          "detector": "pelt",
+          "fault_id": "F-DRIFT-06",
+          "kind": "drift",
+          "station_id": "CM3-L1-ST01",
+          "metric": "mtf50",
+          "onset_day": 86,
+          "size_sigma": 2.9489949225869316,
+          "detected": true,
+          "delay_days": 7.0
+        },
+        {
+          "detector": "pelt",
+          "fault_id": "F-DRIFT-07",
+          "kind": "drift",
+          "station_id": "CM1-L1-ST02",
+          "metric": "mtf50",
+          "onset_day": 91,
+          "size_sigma": 2.0521350091916424,
+          "detected": true,
+          "delay_days": 5.0
+        },
+        {
+          "detector": "pelt",
+          "fault_id": "F-DRIFT-08",
+          "kind": "drift",
+          "station_id": "CM3-L1-ST02",
+          "metric": "mtf50",
+          "onset_day": 145,
+          "size_sigma": 2.223480585150692,
+          "detected": true,
+          "delay_days": 14.0
+        },
+        {
+          "detector": "pelt",
+          "fault_id": "F-DRIFT-09",
+          "kind": "drift",
+          "station_id": "CM1-L1-ST01",
+          "metric": "lum_uniformity",
+          "onset_day": 82,
+          "size_sigma": 1.6567523212516497,
+          "detected": true,
+          "delay_days": 14.0
+        },
+        {
+          "detector": "pelt",
+          "fault_id": "F-DRIFT-10",
+          "kind": "drift",
+          "station_id": "CM1-L1-ST02",
+          "metric": "delta_uv",
+          "onset_day": 70,
+          "size_sigma": 1.565995915449556,
+          "detected": true,
+          "delay_days": 4.0
+        },
+        {
+          "detector": "pelt",
+          "fault_id": "F-DRIFT-11",
+          "kind": "drift",
+          "station_id": "LAB-SV-B02",
+          "metric": "lum_uniformity",
+          "onset_day": 146,
+          "size_sigma": 0.8320898254361895,
+          "detected": false,
+          "delay_days": NaN
+        },
+        {
+          "detector": "pelt",
+          "fault_id": "F-DRIFT-12",
+          "kind": "drift",
+          "station_id": "LAB-RD-B02",
+          "metric": "mtf50",
+          "onset_day": 115,
+          "size_sigma": 1.116009689654112,
+          "detected": true,
+          "delay_days": 9.0
+        },
+        {
+          "detector": "pelt",
+          "fault_id": "F-STEP-01",
+          "kind": "step",
+          "station_id": "CM2-L2-ST01",
+          "metric": "mtf50",
+          "onset_day": 136,
+          "size_sigma": 1.1008401629581406,
+          "detected": true,
+          "delay_days": 0.0
+        },
+        {
+          "detector": "pelt",
+          "fault_id": "F-STEP-02",
+          "kind": "step",
+          "station_id": "CM1-L2-ST02",
+          "metric": "mtf50",
+          "onset_day": 58,
+          "size_sigma": 1.8244294766769076,
+          "detected": true,
+          "delay_days": 0.0
+        },
+        {
+          "detector": "pelt",
+          "fault_id": "F-STEP-03",
+          "kind": "step",
+          "station_id": "LAB-RD-B01",
+          "metric": "lum_uniformity",
+          "onset_day": 144,
+          "size_sigma": 2.190148641749106,
+          "detected": true,
+          "delay_days": 0.0
+        },
+        {
+          "detector": "pelt",
+          "fault_id": "F-STEP-04",
+          "kind": "step",
+          "station_id": "CM2-L3-ST02",
+          "metric": "mtf50",
+          "onset_day": 104,
+          "size_sigma": 2.307833576391854,
+          "detected": true,
+          "delay_days": 0.0
+        },
+        {
+          "detector": "pelt",
+          "fault_id": "F-STEP-05",
+          "kind": "step",
+          "station_id": "CM2-L2-ST01",
+          "metric": "lum_uniformity",
+          "onset_day": 65,
+          "size_sigma": 0.7909199075218538,
+          "detected": true,
+          "delay_days": 0.0
+        },
+        {
+          "detector": "pelt",
+          "fault_id": "F-STEP-06",
+          "kind": "step",
+          "station_id": "CM3-L1-ST03",
+          "metric": "lum_uniformity",
+          "onset_day": 102,
+          "size_sigma": 2.355811369489049,
+          "detected": true,
+          "delay_days": 0.0
+        },
+        {
+          "detector": "pelt",
+          "fault_id": "F-STEP-07",
+          "kind": "step",
+          "station_id": "CM2-L1-ST02",
+          "metric": "mtf50",
+          "onset_day": 137,
+          "size_sigma": 0.8611049968978233,
+          "detected": true,
+          "delay_days": 1.0
+        },
+        {
+          "detector": "pelt",
+          "fault_id": "F-STEP-08",
+          "kind": "step",
+          "station_id": "CM2-L1-ST02",
+          "metric": "delta_uv",
+          "onset_day": 106,
+          "size_sigma": 1.7831434104449615,
+          "detected": true,
+          "delay_days": 0.0
+        }
+      ]
+    },
+    "operator_adjusted": {
+      "ewma": {
+        "faults": 20,
+        "detected": 20,
+        "recall": 1.0,
+        "alarms": 35,
+        "true_alarms": 20,
+        "false_alarms": 15,
+        "precision": 0.5714285714285714,
+        "false_alarms_per_station_month": 0.15810249307479227,
+        "median_delay_days": 6.0,
+        "delay_note": "days after onset"
+      },
+      "cusum": {
+        "faults": 20,
+        "detected": 20,
+        "recall": 1.0,
+        "alarms": 26,
+        "true_alarms": 20,
+        "false_alarms": 6,
+        "precision": 0.7692307692307693,
+        "false_alarms_per_station_month": 0.0632409972299169,
+        "median_delay_days": 7.0,
+        "delay_note": "days after onset"
+      },
+      "pelt": {
+        "faults": 20,
+        "detected": 20,
+        "recall": 1.0,
+        "alarms": 60,
+        "true_alarms": 60,
+        "false_alarms": 0,
+        "precision": 1.0,
+        "false_alarms_per_station_month": 0.0,
+        "median_delay_days": 3.5,
+        "delay_note": "signed localisation error (offline, uses future data)"
+      },
+      "ewma_or_cusum": {
+        "faults": 20,
+        "detected": 20,
+        "recall": 1.0,
+        "median_delay_days": 6.0
+      },
+      "recall_by_size": [
+        {
+          "detector": "cusum",
+          "size": "<1 sigma",
+          "detected": 4,
+          "faults": 4
+        },
+        {
+          "detector": "cusum",
+          "size": "1-2 sigma",
+          "detected": 9,
+          "faults": 9
+        },
+        {
+          "detector": "cusum",
+          "size": ">2 sigma",
+          "detected": 7,
+          "faults": 7
+        },
+        {
+          "detector": "ewma",
+          "size": "<1 sigma",
+          "detected": 4,
+          "faults": 4
+        },
+        {
+          "detector": "ewma",
+          "size": "1-2 sigma",
+          "detected": 9,
+          "faults": 9
+        },
+        {
+          "detector": "ewma",
+          "size": ">2 sigma",
+          "detected": 7,
+          "faults": 7
+        },
+        {
+          "detector": "pelt",
+          "size": "<1 sigma",
+          "detected": 4,
+          "faults": 4
+        },
+        {
+          "detector": "pelt",
+          "size": "1-2 sigma",
+          "detected": 9,
+          "faults": 9
+        },
+        {
+          "detector": "pelt",
+          "size": ">2 sigma",
+          "detected": 7,
+          "faults": 7
+        }
+      ],
+      "exposure": {
+        "series": 76,
+        "stations": 19,
+        "monitored_days": 152,
+        "station_months": 94.9
+      },
+      "per_fault": [
+        {
+          "detector": "ewma",
+          "fault_id": "F-DRIFT-01",
+          "kind": "drift",
+          "station_id": "CM1-L2-ST01",
+          "metric": "mtf50",
+          "onset_day": 136,
+          "size_sigma": 1.8186533671208398,
+          "detected": true,
+          "delay_days": 10
+        },
+        {
+          "detector": "ewma",
+          "fault_id": "F-DRIFT-02",
+          "kind": "drift",
+          "station_id": "CM2-L1-ST01",
+          "metric": "vert_misalign",
+          "onset_day": 107,
+          "size_sigma": 1.4670337416339783,
+          "detected": true,
+          "delay_days": 13
+        },
+        {
+          "detector": "ewma",
+          "fault_id": "F-DRIFT-03",
+          "kind": "drift",
+          "station_id": "CM3-L1-ST03",
+          "metric": "vert_misalign",
+          "onset_day": 85,
+          "size_sigma": 0.7422039416292087,
+          "detected": true,
+          "delay_days": 18
+        },
+        {
+          "detector": "ewma",
+          "fault_id": "F-DRIFT-04",
+          "kind": "drift",
+          "station_id": "LAB-SV-B02",
+          "metric": "vert_misalign",
+          "onset_day": 60,
+          "size_sigma": 1.375287231019696,
+          "detected": true,
+          "delay_days": 18
+        },
+        {
+          "detector": "ewma",
+          "fault_id": "F-DRIFT-05",
+          "kind": "drift",
+          "station_id": "CM1-L1-ST03",
+          "metric": "delta_uv",
+          "onset_day": 87,
+          "size_sigma": 2.5592114491657814,
+          "detected": true,
+          "delay_days": 5
+        },
+        {
+          "detector": "ewma",
+          "fault_id": "F-DRIFT-06",
+          "kind": "drift",
+          "station_id": "CM3-L1-ST01",
+          "metric": "mtf50",
+          "onset_day": 86,
+          "size_sigma": 2.9489949225869316,
+          "detected": true,
+          "delay_days": 6
+        },
+        {
+          "detector": "ewma",
+          "fault_id": "F-DRIFT-07",
+          "kind": "drift",
+          "station_id": "CM1-L1-ST02",
+          "metric": "mtf50",
+          "onset_day": 91,
+          "size_sigma": 2.0521350091916424,
+          "detected": true,
+          "delay_days": 6
+        },
+        {
+          "detector": "ewma",
+          "fault_id": "F-DRIFT-08",
+          "kind": "drift",
+          "station_id": "CM3-L1-ST02",
+          "metric": "mtf50",
+          "onset_day": 145,
+          "size_sigma": 2.223480585150692,
+          "detected": true,
+          "delay_days": 9
+        },
+        {
+          "detector": "ewma",
+          "fault_id": "F-DRIFT-09",
+          "kind": "drift",
+          "station_id": "CM1-L1-ST01",
+          "metric": "lum_uniformity",
+          "onset_day": 82,
+          "size_sigma": 1.6567523212516497,
+          "detected": true,
+          "delay_days": 10
+        },
+        {
+          "detector": "ewma",
+          "fault_id": "F-DRIFT-10",
+          "kind": "drift",
+          "station_id": "CM1-L1-ST02",
+          "metric": "delta_uv",
+          "onset_day": 70,
+          "size_sigma": 1.565995915449556,
+          "detected": true,
+          "delay_days": 9
+        },
+        {
+          "detector": "ewma",
+          "fault_id": "F-DRIFT-11",
+          "kind": "drift",
+          "station_id": "LAB-SV-B02",
+          "metric": "lum_uniformity",
+          "onset_day": 146,
+          "size_sigma": 0.8320898254361895,
+          "detected": true,
+          "delay_days": 10
+        },
+        {
+          "detector": "ewma",
+          "fault_id": "F-DRIFT-12",
+          "kind": "drift",
+          "station_id": "LAB-RD-B02",
+          "metric": "mtf50",
+          "onset_day": 115,
+          "size_sigma": 1.116009689654112,
+          "detected": true,
+          "delay_days": 9
+        },
+        {
+          "detector": "ewma",
+          "fault_id": "F-STEP-01",
+          "kind": "step",
+          "station_id": "CM2-L2-ST01",
+          "metric": "mtf50",
+          "onset_day": 136,
+          "size_sigma": 1.1008401629581406,
+          "detected": true,
+          "delay_days": 1
+        },
+        {
+          "detector": "ewma",
+          "fault_id": "F-STEP-02",
+          "kind": "step",
+          "station_id": "CM1-L2-ST02",
+          "metric": "mtf50",
+          "onset_day": 58,
+          "size_sigma": 1.8244294766769076,
+          "detected": true,
+          "delay_days": 0
+        },
+        {
+          "detector": "ewma",
+          "fault_id": "F-STEP-03",
+          "kind": "step",
+          "station_id": "LAB-RD-B01",
+          "metric": "lum_uniformity",
+          "onset_day": 144,
+          "size_sigma": 2.190148641749106,
+          "detected": true,
+          "delay_days": 0
+        },
+        {
+          "detector": "ewma",
+          "fault_id": "F-STEP-04",
+          "kind": "step",
+          "station_id": "CM2-L3-ST02",
+          "metric": "mtf50",
+          "onset_day": 104,
+          "size_sigma": 2.307833576391854,
+          "detected": true,
+          "delay_days": 0
+        },
+        {
+          "detector": "ewma",
+          "fault_id": "F-STEP-05",
+          "kind": "step",
+          "station_id": "CM2-L2-ST01",
+          "metric": "lum_uniformity",
+          "onset_day": 65,
+          "size_sigma": 0.7909199075218538,
+          "detected": true,
+          "delay_days": 2
+        },
+        {
+          "detector": "ewma",
+          "fault_id": "F-STEP-06",
+          "kind": "step",
+          "station_id": "CM3-L1-ST03",
+          "metric": "lum_uniformity",
+          "onset_day": 102,
+          "size_sigma": 2.355811369489049,
+          "detected": true,
+          "delay_days": 0
+        },
+        {
+          "detector": "ewma",
+          "fault_id": "F-STEP-07",
+          "kind": "step",
+          "station_id": "CM2-L1-ST02",
+          "metric": "mtf50",
+          "onset_day": 137,
+          "size_sigma": 0.8611049968978233,
+          "detected": true,
+          "delay_days": 1
+        },
+        {
+          "detector": "ewma",
+          "fault_id": "F-STEP-08",
+          "kind": "step",
+          "station_id": "CM2-L1-ST02",
+          "metric": "delta_uv",
+          "onset_day": 106,
+          "size_sigma": 1.7831434104449615,
+          "detected": true,
+          "delay_days": 0
+        },
+        {
+          "detector": "cusum",
+          "fault_id": "F-DRIFT-01",
+          "kind": "drift",
+          "station_id": "CM1-L2-ST01",
+          "metric": "mtf50",
+          "onset_day": 136,
+          "size_sigma": 1.8186533671208398,
+          "detected": true,
+          "delay_days": 10
+        },
+        {
+          "detector": "cusum",
+          "fault_id": "F-DRIFT-02",
+          "kind": "drift",
+          "station_id": "CM2-L1-ST01",
+          "metric": "vert_misalign",
+          "onset_day": 107,
+          "size_sigma": 1.4670337416339783,
+          "detected": true,
+          "delay_days": 14
+        },
+        {
+          "detector": "cusum",
+          "fault_id": "F-DRIFT-03",
+          "kind": "drift",
+          "station_id": "CM3-L1-ST03",
+          "metric": "vert_misalign",
+          "onset_day": 85,
+          "size_sigma": 0.7422039416292087,
+          "detected": true,
+          "delay_days": 19
+        },
+        {
+          "detector": "cusum",
+          "fault_id": "F-DRIFT-04",
+          "kind": "drift",
+          "station_id": "LAB-SV-B02",
+          "metric": "vert_misalign",
+          "onset_day": 60,
+          "size_sigma": 1.375287231019696,
+          "detected": true,
+          "delay_days": 18
+        },
+        {
+          "detector": "cusum",
+          "fault_id": "F-DRIFT-05",
+          "kind": "drift",
+          "station_id": "CM1-L1-ST03",
+          "metric": "delta_uv",
+          "onset_day": 87,
+          "size_sigma": 2.5592114491657814,
+          "detected": true,
+          "delay_days": 5
+        },
+        {
+          "detector": "cusum",
+          "fault_id": "F-DRIFT-06",
+          "kind": "drift",
+          "station_id": "CM3-L1-ST01",
+          "metric": "mtf50",
+          "onset_day": 86,
+          "size_sigma": 2.9489949225869316,
+          "detected": true,
+          "delay_days": 7
+        },
+        {
+          "detector": "cusum",
+          "fault_id": "F-DRIFT-07",
+          "kind": "drift",
+          "station_id": "CM1-L1-ST02",
+          "metric": "mtf50",
+          "onset_day": 91,
+          "size_sigma": 2.0521350091916424,
+          "detected": true,
+          "delay_days": 7
+        },
+        {
+          "detector": "cusum",
+          "fault_id": "F-DRIFT-08",
+          "kind": "drift",
+          "station_id": "CM3-L1-ST02",
+          "metric": "mtf50",
+          "onset_day": 145,
+          "size_sigma": 2.223480585150692,
+          "detected": true,
+          "delay_days": 10
+        },
+        {
+          "detector": "cusum",
+          "fault_id": "F-DRIFT-09",
+          "kind": "drift",
+          "station_id": "CM1-L1-ST01",
+          "metric": "lum_uniformity",
+          "onset_day": 82,
+          "size_sigma": 1.6567523212516497,
+          "detected": true,
+          "delay_days": 10
+        },
+        {
+          "detector": "cusum",
+          "fault_id": "F-DRIFT-10",
+          "kind": "drift",
+          "station_id": "CM1-L1-ST02",
+          "metric": "delta_uv",
+          "onset_day": 70,
+          "size_sigma": 1.565995915449556,
+          "detected": true,
+          "delay_days": 12
+        },
+        {
+          "detector": "cusum",
+          "fault_id": "F-DRIFT-11",
+          "kind": "drift",
+          "station_id": "LAB-SV-B02",
+          "metric": "lum_uniformity",
+          "onset_day": 146,
+          "size_sigma": 0.8320898254361895,
+          "detected": true,
+          "delay_days": 10
+        },
+        {
+          "detector": "cusum",
+          "fault_id": "F-DRIFT-12",
+          "kind": "drift",
+          "station_id": "LAB-RD-B02",
+          "metric": "mtf50",
+          "onset_day": 115,
+          "size_sigma": 1.116009689654112,
+          "detected": true,
+          "delay_days": 10
+        },
+        {
+          "detector": "cusum",
+          "fault_id": "F-STEP-01",
+          "kind": "step",
+          "station_id": "CM2-L2-ST01",
+          "metric": "mtf50",
+          "onset_day": 136,
+          "size_sigma": 1.1008401629581406,
+          "detected": true,
+          "delay_days": 1
+        },
+        {
+          "detector": "cusum",
+          "fault_id": "F-STEP-02",
+          "kind": "step",
+          "station_id": "CM1-L2-ST02",
+          "metric": "mtf50",
+          "onset_day": 58,
+          "size_sigma": 1.8244294766769076,
+          "detected": true,
+          "delay_days": 0
+        },
+        {
+          "detector": "cusum",
+          "fault_id": "F-STEP-03",
+          "kind": "step",
+          "station_id": "LAB-RD-B01",
+          "metric": "lum_uniformity",
+          "onset_day": 144,
+          "size_sigma": 2.190148641749106,
+          "detected": true,
+          "delay_days": 0
+        },
+        {
+          "detector": "cusum",
+          "fault_id": "F-STEP-04",
+          "kind": "step",
+          "station_id": "CM2-L3-ST02",
+          "metric": "mtf50",
+          "onset_day": 104,
+          "size_sigma": 2.307833576391854,
+          "detected": true,
+          "delay_days": 0
+        },
+        {
+          "detector": "cusum",
+          "fault_id": "F-STEP-05",
+          "kind": "step",
+          "station_id": "CM2-L2-ST01",
+          "metric": "lum_uniformity",
+          "onset_day": 65,
+          "size_sigma": 0.7909199075218538,
+          "detected": true,
+          "delay_days": 2
+        },
+        {
+          "detector": "cusum",
+          "fault_id": "F-STEP-06",
+          "kind": "step",
+          "station_id": "CM3-L1-ST03",
+          "metric": "lum_uniformity",
+          "onset_day": 102,
+          "size_sigma": 2.355811369489049,
+          "detected": true,
+          "delay_days": 0
+        },
+        {
+          "detector": "cusum",
+          "fault_id": "F-STEP-07",
+          "kind": "step",
+          "station_id": "CM2-L1-ST02",
+          "metric": "mtf50",
+          "onset_day": 137,
+          "size_sigma": 0.8611049968978233,
+          "detected": true,
+          "delay_days": 2
+        },
+        {
+          "detector": "cusum",
+          "fault_id": "F-STEP-08",
+          "kind": "step",
+          "station_id": "CM2-L1-ST02",
+          "metric": "delta_uv",
+          "onset_day": 106,
+          "size_sigma": 1.7831434104449615,
+          "detected": true,
+          "delay_days": 0
+        },
+        {
+          "detector": "pelt",
+          "fault_id": "F-DRIFT-01",
+          "kind": "drift",
+          "station_id": "CM1-L2-ST01",
+          "metric": "mtf50",
+          "onset_day": 136,
+          "size_sigma": 1.8186533671208398,
+          "detected": true,
+          "delay_days": 4
+        },
+        {
+          "detector": "pelt",
+          "fault_id": "F-DRIFT-02",
+          "kind": "drift",
+          "station_id": "CM2-L1-ST01",
+          "metric": "vert_misalign",
+          "onset_day": 107,
+          "size_sigma": 1.4670337416339783,
+          "detected": true,
+          "delay_days": 11
+        },
+        {
+          "detector": "pelt",
+          "fault_id": "F-DRIFT-03",
+          "kind": "drift",
+          "station_id": "CM3-L1-ST03",
+          "metric": "vert_misalign",
+          "onset_day": 85,
+          "size_sigma": 0.7422039416292087,
+          "detected": true,
+          "delay_days": 17
+        },
+        {
+          "detector": "pelt",
+          "fault_id": "F-DRIFT-04",
+          "kind": "drift",
+          "station_id": "LAB-SV-B02",
+          "metric": "vert_misalign",
+          "onset_day": 60,
+          "size_sigma": 1.375287231019696,
+          "detected": true,
+          "delay_days": 9
+        },
+        {
+          "detector": "pelt",
+          "fault_id": "F-DRIFT-05",
+          "kind": "drift",
+          "station_id": "CM1-L1-ST03",
+          "metric": "delta_uv",
+          "onset_day": 87,
+          "size_sigma": 2.5592114491657814,
+          "detected": true,
+          "delay_days": 3
+        },
+        {
+          "detector": "pelt",
+          "fault_id": "F-DRIFT-06",
+          "kind": "drift",
+          "station_id": "CM3-L1-ST01",
+          "metric": "mtf50",
+          "onset_day": 86,
+          "size_sigma": 2.9489949225869316,
+          "detected": true,
+          "delay_days": 5
+        },
+        {
+          "detector": "pelt",
+          "fault_id": "F-DRIFT-07",
+          "kind": "drift",
+          "station_id": "CM1-L1-ST02",
+          "metric": "mtf50",
+          "onset_day": 91,
+          "size_sigma": 2.0521350091916424,
+          "detected": true,
+          "delay_days": 4
+        },
+        {
+          "detector": "pelt",
+          "fault_id": "F-DRIFT-08",
+          "kind": "drift",
+          "station_id": "CM3-L1-ST02",
+          "metric": "mtf50",
+          "onset_day": 145,
+          "size_sigma": 2.223480585150692,
+          "detected": true,
+          "delay_days": 2
+        },
+        {
+          "detector": "pelt",
+          "fault_id": "F-DRIFT-09",
+          "kind": "drift",
+          "station_id": "CM1-L1-ST01",
+          "metric": "lum_uniformity",
+          "onset_day": 82,
+          "size_sigma": 1.6567523212516497,
+          "detected": true,
+          "delay_days": 9
+        },
+        {
+          "detector": "pelt",
+          "fault_id": "F-DRIFT-10",
+          "kind": "drift",
+          "station_id": "CM1-L1-ST02",
+          "metric": "delta_uv",
+          "onset_day": 70,
+          "size_sigma": 1.565995915449556,
+          "detected": true,
+          "delay_days": 12
+        },
+        {
+          "detector": "pelt",
+          "fault_id": "F-DRIFT-11",
+          "kind": "drift",
+          "station_id": "LAB-SV-B02",
+          "metric": "lum_uniformity",
+          "onset_day": 146,
+          "size_sigma": 0.8320898254361895,
+          "detected": true,
+          "delay_days": 4
+        },
+        {
+          "detector": "pelt",
+          "fault_id": "F-DRIFT-12",
+          "kind": "drift",
+          "station_id": "LAB-RD-B02",
+          "metric": "mtf50",
+          "onset_day": 115,
+          "size_sigma": 1.116009689654112,
+          "detected": true,
+          "delay_days": 6
+        },
+        {
+          "detector": "pelt",
+          "fault_id": "F-STEP-01",
+          "kind": "step",
+          "station_id": "CM2-L2-ST01",
+          "metric": "mtf50",
+          "onset_day": 136,
+          "size_sigma": 1.1008401629581406,
+          "detected": true,
+          "delay_days": 0
+        },
+        {
+          "detector": "pelt",
+          "fault_id": "F-STEP-02",
+          "kind": "step",
+          "station_id": "CM1-L2-ST02",
+          "metric": "mtf50",
+          "onset_day": 58,
+          "size_sigma": 1.8244294766769076,
+          "detected": true,
+          "delay_days": 0
+        },
+        {
+          "detector": "pelt",
+          "fault_id": "F-STEP-03",
+          "kind": "step",
+          "station_id": "LAB-RD-B01",
+          "metric": "lum_uniformity",
+          "onset_day": 144,
+          "size_sigma": 2.190148641749106,
+          "detected": true,
+          "delay_days": 0
+        },
+        {
+          "detector": "pelt",
+          "fault_id": "F-STEP-04",
+          "kind": "step",
+          "station_id": "CM2-L3-ST02",
+          "metric": "mtf50",
+          "onset_day": 104,
+          "size_sigma": 2.307833576391854,
+          "detected": true,
+          "delay_days": 0
+        },
+        {
+          "detector": "pelt",
+          "fault_id": "F-STEP-05",
+          "kind": "step",
+          "station_id": "CM2-L2-ST01",
+          "metric": "lum_uniformity",
+          "onset_day": 65,
+          "size_sigma": 0.7909199075218538,
+          "detected": true,
+          "delay_days": 0
+        },
+        {
+          "detector": "pelt",
+          "fault_id": "F-STEP-06",
+          "kind": "step",
+          "station_id": "CM3-L1-ST03",
+          "metric": "lum_uniformity",
+          "onset_day": 102,
+          "size_sigma": 2.355811369489049,
+          "detected": true,
+          "delay_days": 0
+        },
+        {
+          "detector": "pelt",
+          "fault_id": "F-STEP-07",
+          "kind": "step",
+          "station_id": "CM2-L1-ST02",
+          "metric": "mtf50",
+          "onset_day": 137,
+          "size_sigma": 0.8611049968978233,
+          "detected": true,
+          "delay_days": 0
+        },
+        {
+          "detector": "pelt",
+          "fault_id": "F-STEP-08",
+          "kind": "step",
+          "station_id": "CM2-L1-ST02",
+          "metric": "delta_uv",
+          "onset_day": 106,
+          "size_sigma": 1.7831434104449615,
+          "detected": true,
+          "delay_days": 0
+        }
+      ]
+    }
+  },
+  "correlation": {
+    "planted": 4,
+    "flagged": 4,
+    "true_positive": 4,
+    "recall": 1.0,
+    "precision": 1.0,
+    "series_checked": 76
+  },
+  "gauge_rr": {
+    "studies": 76,
+    "planted_noisy": 2,
+    "noisy_flagged_unacceptable": 1,
+    "healthy_flagged_unacceptable": 0,
+    "warehouse_ci_contains_configured": 0.8421052631578947,
+    "median_abs_error_pct_points": 1.3687066152333163,
+    "coverage_monte_carlo": []
+  }
+}

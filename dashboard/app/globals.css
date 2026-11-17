@@ -1,0 +1,116 @@
+/* Tokens from the data-viz reference palette. Light is the default; dark is its own
+   selected steps, applied for the OS setting and for an explicit data-theme toggle. */
+:root {
+  color-scheme: light;
+  --page: #f9f9f7;
+  --surface: #fcfcfb;
+  --ink: #0b0b0b;
+  --ink-2: #52514e;
+  --muted: #898781;
+  --grid: #e1e0d9;
+  --axis: #c3c2b7;
+  --border: rgba(11, 11, 11, 0.1);
+  --series-1: #2a78d6;
+  --series-2: #eb6834;
+  --div-neg: #2a78d6;
+  --div-mid: #f0efec;
+  --div-pos: #e34948;
+  --good: #0ca30c;
+  --warning: #fab219;
+  --serious: #ec835a;
+  --critical: #d03b3b;
+  --band: rgba(235, 104, 52, 0.12);
+}
+@media (prefers-color-scheme: dark) {
+  :root:where(:not([data-theme="light"])) {
+    color-scheme: dark;
+    --page: #0d0d0d;
+    --surface: #1a1a19;
+    --ink: #f0efec;
+    --ink-2: #c3c2b7;
+    --muted: #898781;
+    --grid: #2c2c2a;
+    --axis: #383835;
+    --border: rgba(255, 255, 255, 0.1);
+    --series-1: #3987e5;
+    --series-2: #d95926;
+    --div-neg: #3987e5;
+    --div-mid: #383835;
+    --div-pos: #e66767;
+    --band: rgba(217, 89, 38, 0.2);
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --page: #0d0d0d;
+  --surface: #1a1a19;
+  --ink: #f0efec;
+  --ink-2: #c3c2b7;
+  --muted: #898781;
+  --grid: #2c2c2a;
+  --axis: #383835;
+  --border: rgba(255, 255, 255, 0.1);
+  --series-1: #3987e5;
+  --series-2: #d95926;
+  --div-neg: #3987e5;
+  --div-mid: #383835;
+  --div-pos: #e66767;
+  --band: rgba(217, 89, 38, 0.2);
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body {
+  background: var(--page);
+  color: var(--ink);
+  font: 14px/1.45 system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+main { max-width: 1180px; margin: 0 auto; padding: 24px 16px 64px; }
+h1 { font-size: 22px; margin: 0 0 4px; }
+h2 { font-size: 16px; margin: 0 0 4px; }
+p.sub, .sub { color: var(--ink-2); margin: 0 0 16px; }
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 16px;
+  margin-bottom: 16px;
+  min-width: 0;
+}
+.grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 16px; }
+.kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin-bottom: 16px; }
+.kpi { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 12px 14px; }
+.kpi .v { font-size: 26px; font-weight: 600; font-variant-numeric: tabular-nums; }
+.kpi .l { color: var(--ink-2); font-size: 12px; }
+.filters { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 12px; }
+select, button {
+  font: inherit; color: var(--ink); background: var(--surface);
+  border: 1px solid var(--border); border-radius: 6px; padding: 5px 8px;
+}
+button[aria-pressed="true"] { border-color: var(--ink-2); font-weight: 600; }
+label.chk { display: inline-flex; gap: 6px; align-items: center; color: var(--ink-2); }
+.legend { display: flex; flex-wrap: wrap; gap: 14px; color: var(--ink-2); font-size: 12px; margin: 6px 0 0; }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+.key-line { width: 16px; height: 2px; display: inline-block; }
+.key-dash { width: 16px; border-top: 2px dashed var(--muted); display: inline-block; }
+.key-box { width: 12px; height: 10px; display: inline-block; border-radius: 2px; }
+.key-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+th { text-align: left; color: var(--ink-2); font-weight: 500; font-size: 12px; border-bottom: 1px solid var(--axis); padding: 6px 8px; }
+td { border-bottom: 1px solid var(--grid); padding: 6px 8px; vertical-align: top; }
+td.num, th.num { text-align: right; }
+td.nw, th.nw { white-space: nowrap; }
+.scroll { overflow-x: auto; }
+.badge { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; white-space: nowrap; }
+.dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+.tip {
+  position: absolute; pointer-events: none; background: var(--surface); color: var(--ink);
+  border: 1px solid var(--border); border-radius: 8px; padding: 8px 10px; font-size: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12); white-space: nowrap; z-index: 5;
+}
+.tip b { font-variant-numeric: tabular-nums; }
+.tip .row { display: flex; align-items: center; gap: 6px; }
+.chartwrap { position: relative; width: 100%; }
+svg text { fill: var(--muted); font-size: 11px; }
+.note { color: var(--muted); font-size: 12px; margin-top: 8px; }
+details summary { cursor: pointer; color: var(--ink-2); font-size: 12px; margin-top: 8px; }
